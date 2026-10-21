@@ -16,7 +16,7 @@ datasets:
       non-enhancing tumor core, surrounding FLAIR hyperintensity and resection
       cavity all count.
     root: data/brats2024
-    n_subjects: 150
+    n_volumes: 150          # sampled sequence files; they come from 138 distinct patients
     subsample_seed: 42
     modalities: [t1n, t1c, t2w, t2f]
     planes: [axial, sagittal, coronal]
@@ -37,7 +37,7 @@ datasets:
       treated as reference-negative; the volunteers are healthy, but no expert read
       each displayed slice.
     root: data/ixi
-    n_subjects: 100
+    n_volumes: 100          # IXI filenames name the volunteer, so this is 100 subjects
     subsample_seed: 43
     modalities: [T1, T2, PD, MRA]
     planes: [axial, sagittal, coronal]

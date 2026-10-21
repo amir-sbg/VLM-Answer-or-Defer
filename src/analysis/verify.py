@@ -16,12 +16,11 @@ from __future__ import annotations
 
 import argparse
 import sys
-from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
-from src.analysis import casemix, gate, lesion, rates, study, subset
+from src.analysis import gate, lesion, rates, study, subset
 from src.utils import get_logger, load_yaml, setup_logging, write_csv
 
 log = get_logger(__name__)

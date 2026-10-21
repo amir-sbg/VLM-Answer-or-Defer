@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from src.figures.style import (COLUMN_WIDTH, INK, MUTED, POPULATION_COLORS,
+from src.figures.style import (INK, MUTED, POPULATION_COLORS,
                                POPULATION_MARKERS, TEXT_WIDTH, color_for, save, tidy,
                                use_paper_style)
 

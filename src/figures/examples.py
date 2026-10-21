@@ -18,7 +18,6 @@ from __future__ import annotations
 
 import textwrap
 from dataclasses import dataclass
-from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -27,7 +26,7 @@ from matplotlib.patches import FancyBboxPatch
 
 from src.data.slice_extract import letterbox_resize
 from src.data.slice_labels import mask_slice
-from src.figures.style import INK, TEXT_WIDTH, save, use_paper_style
+from src.figures.style import TEXT_WIDTH, save, use_paper_style
 from src.utils import get_logger, project_path
 
 log = get_logger(__name__)

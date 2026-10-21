@@ -12,9 +12,14 @@ reference:
   # this many pixels on that slice (1 px = 1 mm^2 on the BraTS grid). Any
   # annotated compartment counts.
   positivity_threshold_px: 25
-  # Slices whose mask covers 1..positivity_threshold_px-1 pixels are too small to
-  # call either way and are dropped, as are slices with no usable mask.
-  drop_ambiguous: true
+  # What to do with a BraTS slice whose mask is usable but covers fewer than
+  # positivity_threshold_px pixels: count it as reference-negative, or drop it
+  # as too small to call either way. "negative" is what reproduces the strata
+  # of Table 1; see docs/reproducing.md, which also records the slice counts
+  # the paper reports for the exclusions.
+  subthreshold: negative          # negative | drop
+  # Slices whose segmentation could not be read are always dropped.
+  drop_without_mask: true
   # IXI slices are treated as negatives.
   healthy_sources: [ixi]
 
@@ -41,7 +46,12 @@ subset:
   # Large-lesion, distant-negative subset of BraTS (Table 5). Restricts the
   # images; it does not re-read them.
   min_lesion_px: 400
+  # Sequences on which an annotated compartment is most likely to be visible.
   lesion_sequences: [T2, FLAIR, T1ce]
+  # Whether the sequence restriction also applies to the negatives. The paper
+  # attaches it to the positive clause; applying it to both is what comes
+  # closest to the subset sizes it reports (see docs/reproducing.md).
+  restrict_negatives_to_sequences: true
   min_negative_distance_mm: 10
   reweight_to_pi: 0.70
 

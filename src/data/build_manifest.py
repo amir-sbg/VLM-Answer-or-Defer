@@ -84,6 +84,7 @@ def build(provenance: list[dict], datasets_cfg: dict, positivity_threshold_px: i
     rows = []
     for rec in provenance:
         dataset = rec.get("dataset", "")
+        volume_id = rec.get("volume_id", rec.get("subject_id", ""))
         if dataset == "brats":
             labels = compute_slice_labels(
                 rec.get("volume_path", ""), rec["plane"], float(rec["slice_frac"]),
@@ -92,14 +93,14 @@ def build(provenance: list[dict], datasets_cfg: dict, positivity_threshold_px: i
             demo = {"sex": None, "age": None}
         else:
             labels = healthy_labels()
-            demo = demographics.get(rec.get("volume_id", ""), {"sex": None, "age": None})
+            demo = demographics.get(volume_id, {"sex": None, "age": None})
 
         rows.append({
             "image_id": rec["image_id"],
             "path": rec.get("path"),
             "dataset": dataset,
             "subject_id": subject_of(rec),
-            "volume_id": rec.get("volume_id"),
+            "volume_id": volume_id,
             "modality": rec.get("modality"),
             "plane": rec.get("plane"),
             "slice_frac": rec.get("slice_frac"),

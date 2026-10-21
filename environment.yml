@@ -1,0 +1,28 @@
+# Conda environment used for the paper runs (CUDA 12.1, A100 80GB).
+# The analysis half of the repository runs without torch; see requirements.txt.
+name: deferral
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - numpy=1.26
+  - pandas=2.1
+  - scipy=1.11
+  - matplotlib=3.8
+  - pyyaml=6.0
+  - pillow=10.2
+  - pytest=8.0
+  - pytorch=2.4.*
+  - pytorch-cuda=12.1
+  - torchvision
+  - pip:
+      - nibabel==5.2.1
+      - transformers==4.53.0
+      - accelerate==0.34.2
+      - sentencepiece==0.2.0
+      - vllm==0.6.3
+      - openpyxl==3.1.2
+      - xlrd==2.0.1

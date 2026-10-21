@@ -1,0 +1,36 @@
+# Source data and the slices derived from it. Neither is ours to redistribute.
+data/brats2024/
+data/ixi/
+data/oasis/
+data/slices/
+data/*.nii
+data/*.nii.gz
+data/slice_provenance.jsonl
+data/exam_set.csv
+
+# Model weights and Hugging Face caches
+cache/
+*.safetensors
+*.bin
+
+# Full model transcripts (~650 MB). The per-slice decisions distilled from them
+# are committed as results/tumor_decisions.csv.gz.
+raw_responses/
+
+# Run logs and W&B
+logs/
+wandb/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+*.egg-info/
+.venv/
+venv/
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/

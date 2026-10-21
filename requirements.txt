@@ -1,0 +1,13 @@
+# Analysis and figures. This is what the paper's tables and figures need.
+numpy>=1.26
+pandas>=2.1
+scipy>=1.11
+matplotlib>=3.8
+PyYAML>=6.0
+nibabel>=5.2
+Pillow>=10.2
+pytest>=8.0
+
+# Inference. Only needed to regenerate raw_responses/ from the slices.
+# torch, transformers and vllm are pinned in environment.yml instead, because
+# the working combination depends on the CUDA build of the host.

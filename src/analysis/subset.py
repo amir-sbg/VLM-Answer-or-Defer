@@ -67,6 +67,31 @@ def reweighted_rates(frame: pd.DataFrame, pi: float) -> dict[str, float]:
     }
 
 
+def answer_only_at_pi(sensitivity: float, specificity: float, pi: float,
+                      alpha: float) -> dict[str, float]:
+    """Best answer-only rule after reweighting the subset to case mix `pi`.
+
+    The subset is built by restricting the images, which raises the share of
+    positives well above the natural mix. Reporting the answer-only rule on the
+    subset as it stands would therefore flatter it, so the shares and the
+    predictive values are both taken at `pi`: a "yes" answer is given on
+    pi*sens + (1-pi)(1-spec) of slices and is right PPV(pi) of the time.
+    """
+    yes_share = pi * sensitivity + (1 - pi) * (1 - specificity)
+    no_share = (1 - pi) * specificity + pi * (1 - sensitivity)
+    true_pos, true_neg = pi * sensitivity, (1 - pi) * specificity
+
+    best = {"coverage": 0.0, "rule": "none", "accuracy": float("nan")}
+    for rule, share, right in (("all_yes", yes_share, true_pos),
+                               ("all_no", no_share, true_neg)):
+        if share <= 0:
+            continue
+        accuracy = right / share
+        if accuracy >= 1 - alpha - 1e-12 and share > best["coverage"]:
+            best = {"coverage": float(share), "rule": rule, "accuracy": float(accuracy)}
+    return best
+
+
 def subset_table(table: pd.DataFrame, subset_cfg: dict, alphas: list[float],
                  models: list[str] | None = None) -> pd.DataFrame:
     """Table 5: the gate on the subset, against C_alpha on all of BraTS."""
@@ -86,24 +111,20 @@ def subset_table(table: pd.DataFrame, subset_cfg: dict, alphas: list[float],
             continue
 
         rates = reweighted_rates(on_subset, pi)
-        # The answer-only rule here is evaluated at the natural case mix too, so
-        # it is the best of the two reweighted predictive values.
-        best_answer_class = max(
-            (v for v in (rates["ppv_at_pi"], rates["npv_at_pi"]) if not np.isnan(v)),
-            default=float("nan"))
+        loose = answer_only_at_pi(rates["sensitivity"], rates["specificity"], pi, alpha_loose)
 
         record = {
             "model": label,
             **{k: rates[k] for k in ("n_positive", "n_negative", "sensitivity", "specificity")},
             "specificity_needed_for_strict_target":
                 specificity_needed(rates["sensitivity"], pi, alpha_strict),
-            "answer_only_accuracy_at_pi": best_answer_class,
-            "answer_only_meets_loose_target": bool(best_answer_class >= 1 - alpha_loose),
+            f"answer_only_{alpha_loose:.2f}_at_pi": loose["coverage"],
+            "answer_only_rule_at_pi": loose["rule"],
         }
         for alpha in alphas:
             record[f"C_{alpha:.2f}_all_brats"] = max_coverage_at_risk(on_full, alpha)["coverage"]
             record[f"C_{alpha:.2f}_subset"] = max_coverage_at_risk(on_subset, alpha)["coverage"]
-            record[f"answer_only_{alpha:.2f}_subset"] = \
+            record[f"answer_only_{alpha:.2f}_observed"] = \
                 answer_only_rule(on_subset, alpha)["coverage"]
         rows.append(record)
     return pd.DataFrame(rows)

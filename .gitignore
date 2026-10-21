@@ -1,8 +1,9 @@
 # Source data and the slices derived from it. Neither is ours to redistribute.
-data/brats2024/
-data/ixi/
-data/oasis/
-data/slices/
+# These may also be symlinks to a copy held elsewhere on the machine.
+data/brats2024
+data/ixi
+data/oasis
+data/slices
 data/*.nii
 data/*.nii.gz
 data/slice_provenance.jsonl
@@ -15,7 +16,7 @@ cache/
 
 # Full model transcripts (~650 MB). The per-slice decisions distilled from them
 # are committed as results/tumor_decisions.csv.gz.
-raw_responses/
+raw_responses
 
 # Run logs and W&B
 logs/

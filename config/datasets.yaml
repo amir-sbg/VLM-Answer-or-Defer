@@ -1,0 +1,56 @@
+# Sources, sampling and label derivation for the two populations in the study.
+#
+# Neither dataset is redistributed here. BraTS 2024 is obtained through Synapse
+# and IXI from brain-development.org; both are public and de-identified, and are
+# used under their own terms. `root` is relative to the project root.
+
+datasets:
+
+  brats:
+    name: BraTS 2024 (post-treatment glioma)
+    description: >
+      Post-treatment glioma patients from the BraTS 2024 segmentation challenge.
+      Each subject ships T1, T1ce, T2 and FLAIR volumes co-registered to a common
+      atlas, skull-stripped, with one multi-compartment segmentation mask. The
+      mask is the reference for the tumor decision: enhancing tissue,
+      non-enhancing tumor core, surrounding FLAIR hyperintensity and resection
+      cavity all count.
+    root: data/brats2024
+    n_subjects: 150
+    subsample_seed: 42
+    modalities: [t1n, t1c, t2w, t2f]
+    planes: [axial, sagittal, coronal]
+    slice_fracs: [0.4, 0.5, 0.6]
+    seg_pattern: "**/*seg.nii.gz"
+    label_sources:
+      modality: filename_suffix
+      plane: by_construction
+      tumor_present: slice_mask_area      # >= positivity_threshold_px on this slice
+      laterality: slice_mask_centroid
+
+  ixi:
+    name: IXI (healthy volunteers)
+    description: >
+      Healthy-volunteer scans from the IXI collection. These volumes are neither
+      skull-stripped nor atlas-registered, so IXI slices keep the skull, the scalp
+      and, at inferior levels, the orbits and skull base. Every IXI slice is
+      treated as reference-negative; the volunteers are healthy, but no expert read
+      each displayed slice.
+    root: data/ixi
+    n_subjects: 100
+    subsample_seed: 43
+    modalities: [T1, T2, PD, MRA]
+    planes: [axial, sagittal, coronal]
+    slice_fracs: [0.4, 0.5, 0.6]
+    metadata_file: data/ixi/IXI.xls
+    label_sources:
+      modality: filename
+      plane: by_construction
+      tumor_present: healthy_dataset
+      laterality: none
+
+# Applies to every dataset above.
+global:
+  output_image_size: [512, 512]
+  intensity_clip_percentile: [1, 99]
+  output_format: PNG

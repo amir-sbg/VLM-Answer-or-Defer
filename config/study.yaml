@@ -1,0 +1,56 @@
+# Every constant the deferral analysis depends on, in one place. Nothing in
+# src/analysis/ hard-codes a threshold; it is all read from here, so a
+# robustness check is a change to this file plus an --output-dir.
+
+decision:
+  task: T4-TUMOR
+  format: MC
+  phrasing: neutral
+
+reference:
+  # A BraTS slice is reference-positive if its segmentation mask covers at least
+  # this many pixels on that slice (1 px = 1 mm^2 on the BraTS grid). Any
+  # annotated compartment counts.
+  positivity_threshold_px: 25
+  # Slices whose mask covers 1..positivity_threshold_px-1 pixels are too small to
+  # call either way and are dropped, as are slices with no usable mask.
+  drop_ambiguous: true
+  # IXI slices are treated as negatives.
+  healthy_sources: [ixi]
+
+gate:
+  # Error budgets for C_alpha (Eq. 2). These are stress tests, not clinical
+  # thresholds.
+  alphas: [0.05, 0.10, 0.20]
+  # Stated confidences take few distinct values, so a threshold cannot split a
+  # tie. Candidate thresholds are the distinct confidence values a model used.
+  tie_aware: true
+
+case_mix:
+  # Share of reference-positive slices to reweight BraTS to (Fig. 4). Sensitivity
+  # and specificity are held fixed; only the mix changes.
+  pi_grid: {start: 0.02, stop: 0.98, step: 0.01}
+  natural_mix_source: brats
+
+lesion_area:
+  # In-plane area of the annotated lesion on the slice, in pixels (Fig. 5).
+  bins: [25, 100, 400, 1600]
+  top_open: true
+
+subset:
+  # Large-lesion, distant-negative subset of BraTS (Table 5). Restricts the
+  # images; it does not re-read them.
+  min_lesion_px: 400
+  lesion_sequences: [T2, FLAIR, T1ce]
+  min_negative_distance_mm: 10
+  reweight_to_pi: 0.70
+
+bootstrap:
+  n_resamples: 1000
+  seed: 20260127
+  cluster: subject_id
+  level: 0.95
+
+robustness:
+  # Alternative positivity thresholds checked in Section 4.6.
+  positivity_thresholds_px: [25, 100]

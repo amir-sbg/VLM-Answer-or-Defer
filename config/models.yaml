@@ -1,0 +1,95 @@
+# The eight open-weight models evaluated in the paper, in the order of Table 2.
+#
+# `type` is the grouping used in the tables: G general-purpose instruction-tuned,
+# M medical fine-tune, R reasoning (writes a <think> trace before answering).
+#
+# `max_tokens` is the generation budget. 512 is enough for the six
+# instruction-tuned models, which answer in two lines. The two reasoning models
+# need room for the trace to finish: a truncated trace has no answer after
+# </think> and is counted as deferred, so too small a budget costs coverage
+# rather than accuracy. See docs/reproducing.md on this point -- the released
+# transcripts for GLM-4.6V-Flash and Qwen3.6-27B were produced at 512 and 2,048.
+#
+# All runs are bfloat16 with greedy decoding.
+
+defaults:
+  dtype: bf16
+  decoding: greedy
+  max_model_len: 8192
+
+models:
+
+  - id: OpenGVLab/InternVL2_5-8B
+    label: InternVL2.5-8B
+    type: G
+    family: internvl
+    params_b: 8
+    backend: vllm
+    max_tokens: 512
+    gpu_memory_utilization: 0.85
+
+  - id: Qwen/Qwen2.5-VL-3B-Instruct
+    label: Qwen2.5-VL-3B
+    type: G
+    family: qwen2.5-vl
+    params_b: 3
+    backend: vllm
+    max_tokens: 512
+    gpu_memory_utilization: 0.70
+
+  - id: Qwen/Qwen2.5-VL-7B-Instruct
+    label: Qwen2.5-VL-7B
+    type: G
+    family: qwen2.5-vl
+    params_b: 7
+    backend: vllm
+    max_tokens: 512
+    gpu_memory_utilization: 0.85
+
+  - id: google/gemma-3-4b-it
+    label: Gemma-3-4B
+    type: G
+    family: gemma
+    params_b: 4
+    backend: hf
+    max_tokens: 512
+    gpu_memory_utilization: 0.75
+
+  - id: google/medgemma-4b-it
+    label: MedGemma-4B
+    type: M
+    family: gemma
+    params_b: 4
+    backend: hf
+    max_tokens: 512
+    gpu_memory_utilization: 0.75
+    note: medical fine-tune of google/gemma-3-4b-it
+
+  - id: google/gemma-4-12B-it
+    label: Gemma-4-12B
+    type: G
+    family: gemma
+    params_b: 12
+    backend: hf
+    max_tokens: 512
+    gpu_memory_utilization: 0.85
+
+  - id: zai-org/GLM-4.6V-Flash
+    label: GLM-4.6V-Flash
+    type: R
+    family: glm-4.6v
+    params_b: 9
+    backend: hf
+    max_tokens: 2048
+    gpu_memory_utilization: 0.85
+    reasoning_model: true
+
+  - id: Qwen/Qwen3.6-27B
+    label: Qwen3.6-27B
+    type: R
+    family: qwen3.6
+    params_b: 27
+    backend: hf
+    max_tokens: 8192
+    gpu_memory_utilization: 0.90
+    reasoning_model: true

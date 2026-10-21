@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this code or the released per-slice decisions, please cite the paper."
+title: "Answer or Defer? Testing VLMs' Stated Confidence on Brain MRI"
+abstract: >-
+  Research code for a study of whether the confidence a vision-language model
+  states alongside its answer can serve as a deferral gate on brain MRI, and of
+  what makes it fail when it cannot.
+authors:
+  - family-names: Sabbaghziarani
+    given-names: Amir
+    affiliation: "TReNDS Center, Georgia State University"
+    email: asabbaghziarani1@gsu.edu
+license: MIT
+repository-code: "https://github.com/amir-sbg/answer-or-defer-vlm-brain-mri"
+keywords:
+  - vision-language models
+  - selective prediction
+  - deferral
+  - uncertainty
+  - brain MRI
+  - medical imaging
+preferred-citation:
+  type: conference-paper
+  title: "Answer or Defer? Testing VLMs' Stated Confidence on Brain MRI"
+  authors:
+    - family-names: Sabbaghziarani
+      given-names: Amir
+  collection-title: "IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), Applications Track"
+  year: 2027
+  notes: "Under review"

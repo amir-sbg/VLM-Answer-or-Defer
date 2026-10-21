@@ -45,15 +45,18 @@ def order_rows(frame: pd.DataFrame, models: list[str]) -> pd.DataFrame:
     if "model" not in frame.columns:
         return frame
     position = {label: i for i, label in enumerate(models)}
+    # Only the model order is imposed. A stable sort keeps whatever order the
+    # analysis produced within a model, which matters for the area bins: sorting
+    # their labels would put "100-400" before "25-100".
     return (frame.assign(_order=frame["model"].map(position))
-                 .sort_values(["_order", *[c for c in ("population", "area_bin")
-                                           if c in frame.columns]], kind="mergesort")
+                 .sort_values("_order", kind="mergesort")
                  .drop(columns="_order")
                  .reset_index(drop=True))
 
 
-def robustness_over_thresholds(table_path: str, manifest_path: str, responses_dir: str,
-                               study_cfg: dict, thresholds: list[int]) -> pd.DataFrame:
+def robustness_over_thresholds(manifest_path: str, responses_dir: str, tasks_path: str,
+                               models_path: str, study_cfg: dict,
+                               thresholds: list[int]) -> pd.DataFrame:
     """Re-derive the strata at each positivity threshold and recompute the rates.
 
     This is the check of Section 4.6: does the reference threshold drive the
@@ -63,9 +66,9 @@ def robustness_over_thresholds(table_path: str, manifest_path: str, responses_di
     from src.utils import model_labels
 
     manifest = pd.read_csv(manifest_path)
-    labels = model_labels()
+    labels = model_labels(models_path)
     records = study.read_transcripts(responses_dir, study_cfg["decision"], list(labels))
-    tasks_cfg = load_yaml("config/tasks.yaml")
+    tasks_cfg = load_yaml(tasks_path)
 
     frames = []
     for threshold in thresholds:
@@ -96,6 +99,8 @@ def main() -> None:
     ap.add_argument("--table", default="results/tumor_decisions.csv.gz")
     ap.add_argument("--manifest", default="data/exam_set.csv")
     ap.add_argument("--responses-dir", default="raw_responses")
+    ap.add_argument("--tasks", default="config/tasks.yaml")
+    ap.add_argument("--models", default="config/models.yaml")
     ap.add_argument("--study", default="config/study.yaml")
     ap.add_argument("--output-dir", default="results/tables")
     ap.add_argument("--no-bootstrap", action="store_true",
@@ -132,7 +137,7 @@ def main() -> None:
         built["table2_intervals"] = bootstrap.rate_intervals(table, cfg["bootstrap"])
     if not args.no_robustness:
         built["robustness_positivity"] = robustness_over_thresholds(
-            args.table, args.manifest, args.responses_dir, cfg,
+            args.manifest, args.responses_dir, args.tasks, args.models, cfg,
             cfg["robustness"]["positivity_thresholds_px"])
 
     for name, frame in built.items():

@@ -59,7 +59,7 @@ enough to act on.
   doubles.
 
 <p align="center">
-  <img src="figures/fig3_confidence.png" alt="Confidence by outcome, and the correlation by population" width="760">
+  <img src="docs/confidence-by-outcome.png" alt="Confidence by outcome, and the correlation by population" width="760">
 </p>
 
 ## Benchmark
@@ -79,9 +79,9 @@ enough to act on.
 
 ## Headline Results
 
-Recomputed from the released per-slice decisions. `C_alpha` is the largest
-share of slices any threshold accepts with at most `alpha` error; deferred
-slices count in the denominator.
+Recomputed by this code from the per-slice decisions, not copied from the
+paper. `C_alpha` is the largest share of slices any threshold accepts with at
+most `alpha` error; deferred slices count in the denominator.
 
 | Model | Sens. BraTS+ | Spec. BraTS− | Spec. IXI | BA BraTS | Acc. | C<sub>0.05</sub> | C<sub>0.10</sub> | C<sub>0.20</sub> |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -125,9 +125,10 @@ Three patterns run through the table:
 - `tests/`: 72 tests over parsing, the gate, the decomposition, case mix, the
   subset and the bootstrap
 
-`results/tumor_decisions.csv.gz` is committed: one row per (model, slice) with
-the reference, the answer, the correctness and the stated confidence. The
-images, the segmentations and the raw transcripts are not.
+Nothing generated is tracked. The decision table, the tables, the figures and
+the verification report are all rebuilt by `make paper`, and the images, the
+segmentations and the raw transcripts are not redistributed here. Per-slice
+outputs will be released with the camera-ready version.
 
 ## Quick Start
 
@@ -140,16 +141,22 @@ conda activate deferral
 export PYTHONPATH="$PWD"
 ```
 
-Rebuild every table and figure from the committed decisions -- no images, no
-GPU, about a minute:
+Run the test suite, which needs no data:
 
 ```bash
-make paper
 make test
 ```
 
-`make paper` writes `results/tables/*.csv` (and LaTeX for the four numbered
-tables), `figures/fig2..fig5`, and `results/verification.csv`.
+Rebuilding the paper needs `results/tumor_decisions.csv.gz`, which `make study`
+produces from the transcripts (see the next section). Once it exists:
+
+```bash
+make paper
+```
+
+That writes `results/tables/*.csv` (and LaTeX for the four numbered tables),
+`figures/fig2..fig5`, and `results/verification.csv`, in about a minute and
+without a GPU.
 
 ## Full Pipeline
 
@@ -185,7 +192,9 @@ python -m src.inference.run_inference \
   --format MC OE
 ```
 
-Parse the transcripts into the decision table, then rebuild the paper:
+Parse the transcripts once into the per-slice decision table -- one row per
+(model, slice) with the reference, the answer, the correctness and the stated
+confidence -- then rebuild the paper from it:
 
 ```bash
 python -m src.analysis.build_study_table \
@@ -195,6 +204,9 @@ python -m src.analysis.build_study_table \
 
 make paper
 ```
+
+Every number in Section 4 comes from that one file, so the transcripts are
+parsed exactly once and each result is traceable to a single artifact.
 
 For the full sweep, `sbatch slurm/inference.slurm` runs one model per array
 task across four GPUs. Runs resume: each shard owns a disjoint, stably hashed

@@ -14,9 +14,12 @@ cache/
 *.safetensors
 *.bin
 
-# Full model transcripts (~650 MB). The per-slice decisions distilled from them
-# are committed as results/tumor_decisions.csv.gz.
+# Everything the pipeline produces. None of it is tracked: the tables, the
+# figures and the per-slice decision table are all rebuilt by `make paper`,
+# and the model transcripts run to ~650 MB.
 raw_responses
+results/
+figures/
 
 # Run logs and W&B
 logs/

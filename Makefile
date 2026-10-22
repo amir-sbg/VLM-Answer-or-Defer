@@ -11,13 +11,13 @@ MANIFEST ?= data/exam_set.csv
 .PHONY: help slices manifest data inference study tables figures verify paper test clean
 
 help:
-	@echo "paper      rebuild every table and figure from results/tumor_decisions.csv.gz"
+	@echo "paper      rebuild every table and figure from the decision table"
 	@echo "tables     the CSV and LaTeX tables"
 	@echo "figures    Figures 2-5"
 	@echo "verify     recompute the paper's printed numbers and report differences"
-	@echo "test       the test suite"
+	@echo "test       the test suite (needs no data)"
 	@echo ""
-	@echo "needs the source data and a GPU:"
+	@echo "needs the source data; inference also needs a GPU:"
 	@echo "slices     NIfTI volumes -> PNG slices + provenance"
 	@echo "manifest   provenance + segmentations -> $(MANIFEST)"
 	@echo "inference  run one model over the exam (MODEL=<hf id>)"

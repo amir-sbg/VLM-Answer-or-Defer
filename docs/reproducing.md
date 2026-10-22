@@ -1,18 +1,21 @@
 # Reproducing the paper
 
-Everything in Section 4 is rebuilt from one committed file,
+Everything in Section 4 is rebuilt from one file,
 `results/tumor_decisions.csv.gz`: one row per (model, slice) with the
 reference, the answer, whether the answer is right, and the stated confidence.
-Neither the images nor the 650 MB of raw transcripts are needed for that.
+Once that file exists, neither the images nor the 650 MB of raw transcripts are
+needed again.
 
 ```bash
+make study     # transcripts -> the decision table
 make paper     # tables, figures, and the verification report
 make test      # the test suite
 ```
 
-To rebuild the decision table itself you need the slices and the transcripts;
-`make data` and `make inference` are the steps that produce them, and
-`slurm/inference.slurm` runs the eight models four shards to a GPU.
+No generated file is tracked in this repository. To produce the decision table
+you need the slices and the transcripts: `make data` and `make inference` are
+the steps that build them, and `slurm/inference.slurm` runs the eight models
+four shards to a GPU.
 
 ## What `make verify` does
 

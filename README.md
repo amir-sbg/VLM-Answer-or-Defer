@@ -3,11 +3,14 @@
 <p align="center">
   <img src="docs/logos/trends.png" alt="TReNDS Center" height="42">
   &nbsp;&nbsp;&nbsp;
-  <img src="docs/logos/georgia-state.jpg" alt="Georgia State University" height="42">
+  <img src="https://amir-sbg.github.io/FlexSplat/assets/logos/gsu.png" alt="Georgia State University" height="42">
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/WACV-2027-4b2e83.svg" alt="WACV 2027">
+  <a href="https://amir-sbg.github.io/VLM-Answer-or-Defer/"><img src="https://img.shields.io/badge/Project-Website-315f8c.svg" alt="Project website"></a>
+  <a href="https://wacv.thecvf.com/"><img src="https://img.shields.io/badge/WACV-2027-4b2e83.svg" alt="WACV 2027"></a>
+  <a href="https://sites.google.com/view/fabric-wacv"><img src="https://img.shields.io/badge/FABRIC-Workshop-7c5cc4.svg" alt="FABRIC Workshop"></a>
+  <img src="https://img.shields.io/badge/arXiv-coming%20soon-b31b1b.svg" alt="arXiv coming soon">
   <img src="https://img.shields.io/badge/track-Applications-6a6a6a.svg" alt="Applications Track">
   <img src="https://img.shields.io/badge/Python-3.11-3776AB.svg" alt="Python 3.11">
   <img src="https://img.shields.io/badge/status-research%20code-lightgrey.svg" alt="Research code">
@@ -16,7 +19,8 @@
 Research code for the paper:
 
 > **Answer or Defer? Testing VLMs' Stated Confidence on Brain MRI**<br>
-> Under review, WACV 2027 Applications Track
+> Under review, [WACV 2027](https://wacv.thecvf.com/) Applications Track —
+> [FABRIC Workshop](https://sites.google.com/view/fabric-wacv)
 
 A vision-language model that reads a brain MRI slice also tells you how sure it
 is. This repository asks whether that number can decide when to act on the
@@ -36,6 +40,10 @@ slices** for a tumor or gross abnormality:
 - **2,682 slices** from 100 healthy volunteers (IXI), treated as negatives
 - Multiple choice with neutral wording, an explicit confidence from 0 to 100,
   greedy decoding
+
+<p align="center">
+  <img src="docs/study-design.png" alt="Answer-or-defer evaluation design for VLM confidence on brain MRI" width="900">
+</p>
 
 A gate accepts the answers whose confidence clears a threshold and defers the
 rest. The question is whether any threshold leaves a set of answers reliable
@@ -57,6 +65,10 @@ enough to act on.
   slices than the gate for two models.
 - Mean confidence barely moves with lesion area, even where sensitivity nearly
   doubles.
+
+<p align="center">
+  <img src="docs/confidence-failure-example.png" alt="Example showing the same high stated confidence on correct and incorrect brain MRI answers" width="960">
+</p>
 
 <p align="center">
   <img src="docs/confidence-by-outcome.png" alt="Confidence by outcome, and the correlation by population" width="760">

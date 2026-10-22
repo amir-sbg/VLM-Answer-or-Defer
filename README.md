@@ -19,6 +19,8 @@
 Research code for the paper:
 
 > **Answer or Defer? Testing VLMs' Stated Confidence on Brain MRI**<br>
+> Amir Sabbaghziarani and Sergey Plis<br>
+> TReNDS Center, Georgia State University<br>
 > Under review, [WACV 2027](https://wacv.thecvf.com/) Applications Track —
 > [FABRIC Workshop](https://sites.google.com/view/fabric-wacv)
 
@@ -70,9 +72,33 @@ enough to act on.
   <img src="docs/confidence-failure-example.png" alt="Example showing the same high stated confidence on correct and incorrect brain MRI answers" width="960">
 </p>
 
+## Confidence Failure Analysis
+
 <p align="center">
-  <img src="docs/confidence-by-outcome.png" alt="Confidence by outcome, and the correlation by population" width="760">
+  <img src="docs/outcome-level-confidence.png" alt="Mean stated confidence for true positives, false positives, true negatives, and false negatives" width="760">
 </p>
+
+True and false predictions receive nearly the same confidence once the answer
+is fixed. The larger gap is between *yes* and *no* answers, indicating that
+stated confidence often reflects answer preference more than correctness.
+
+<p align="center">
+  <img src="docs/population-correlation-shift.png" alt="Confidence-correctness correlation reverses between the BraTS and IXI populations" width="760">
+</p>
+
+The confidence-correctness correlation changes sign between the glioma and
+healthy cohorts for all eight models. On IXI, where every reference answer is
+negative, the sign mainly records which answer a model states more confidently;
+it is not evidence that confidence generalizes as a reliability signal.
+
+<p align="center">
+  <img src="docs/lesion-area-sensitivity.png" alt="VLM sensitivity increases with lesion area on BraTS positive slices" width="760">
+</p>
+
+Sensitivity improves sharply as in-plane lesion area grows, but mean stated
+confidence changes little across the same bins. The models therefore provide
+limited confidence-based warning on the small lesions they are most likely to
+miss.
 
 ## Benchmark
 
@@ -261,7 +287,7 @@ on it.
 ```bibtex
 @inproceedings{sabbaghziarani2027answer,
   title     = {Answer or Defer? Testing {VLMs}' Stated Confidence on Brain {MRI}},
-  author    = {Sabbaghziarani, Amir},
+  author    = {Sabbaghziarani, Amir and Plis, Sergey},
   booktitle = {IEEE/CVF Winter Conference on Applications of Computer Vision (WACV),
                Applications Track},
   year      = {2027},

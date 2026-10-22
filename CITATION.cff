@@ -10,8 +10,11 @@ authors:
     given-names: Amir
     affiliation: "TReNDS Center, Georgia State University"
     email: asabbaghziarani1@gsu.edu
+  - family-names: Plis
+    given-names: Sergey
+    affiliation: "TReNDS Center, Georgia State University"
 license: MIT
-repository-code: "https://github.com/amir-sbg/answer-or-defer-vlm-brain-mri"
+repository-code: "https://github.com/amir-sbg/VLM-Answer-or-Defer"
 keywords:
   - vision-language models
   - selective prediction
@@ -25,6 +28,8 @@ preferred-citation:
   authors:
     - family-names: Sabbaghziarani
       given-names: Amir
+    - family-names: Plis
+      given-names: Sergey
   collection-title: "IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), Applications Track"
   year: 2027
   notes: "Under review"

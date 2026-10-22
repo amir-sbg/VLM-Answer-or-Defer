@@ -7,20 +7,18 @@
 </p>
 
 <p align="center">
-  <a href="https://amir-sbg.github.io/VLM-Answer-or-Defer/"><img src="https://img.shields.io/badge/Project-Website-315f8c.svg" alt="Project website"></a>
   <a href="https://wacv.thecvf.com/"><img src="https://img.shields.io/badge/WACV-2027-4b2e83.svg" alt="WACV 2027"></a>
   <a href="https://sites.google.com/view/fabric-wacv"><img src="https://img.shields.io/badge/FABRIC-Workshop-7c5cc4.svg" alt="FABRIC Workshop"></a>
   <img src="https://img.shields.io/badge/arXiv-coming%20soon-b31b1b.svg" alt="arXiv coming soon">
-  <img src="https://img.shields.io/badge/track-Applications-6a6a6a.svg" alt="Applications Track">
   <img src="https://img.shields.io/badge/Python-3.11-3776AB.svg" alt="Python 3.11">
-  <img src="https://img.shields.io/badge/status-research%20code-lightgrey.svg" alt="Research code">
 </p>
 
 Research code for the paper:
 
 > **Answer or Defer? Testing VLMs' Stated Confidence on Brain MRI**<br>
-> Amir Sabbaghziarani and Sergey Plis<br>
-> TReNDS Center, Georgia State University<br>
+> Amir Sabbaghziarani<sup>1,2</sup> and Sergey Plis<sup>1,2</sup><br>
+> <sup>1</sup>Joint Georgia Institute of Technology / Georgia State University / Emory University Center for Translational Research in Data Science and Neuroimaging<br>
+> <sup>2</sup>Georgia State University<br>
 > Under review, [WACV 2027](https://wacv.thecvf.com/) Applications Track —
 > [FABRIC Workshop](https://sites.google.com/view/fabric-wacv)
 

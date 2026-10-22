@@ -8,11 +8,11 @@ abstract: >-
 authors:
   - family-names: Sabbaghziarani
     given-names: Amir
-    affiliation: "TReNDS Center, Georgia State University"
+    affiliation: "Joint Georgia Institute of Technology / Georgia State University / Emory University Center for Translational Research in Data Science and Neuroimaging; Georgia State University"
     email: asabbaghziarani1@gsu.edu
   - family-names: Plis
     given-names: Sergey
-    affiliation: "TReNDS Center, Georgia State University"
+    affiliation: "Joint Georgia Institute of Technology / Georgia State University / Emory University Center for Translational Research in Data Science and Neuroimaging; Georgia State University"
 license: MIT
 repository-code: "https://github.com/amir-sbg/VLM-Answer-or-Defer"
 keywords:

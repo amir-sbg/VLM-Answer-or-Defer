@@ -16,7 +16,7 @@
 Research code for the paper:
 
 > **Answer or Defer? Testing VLMs' Stated Confidence on Brain MRI**<br>
-> Amir Sabbaghziarani<sup>1,2</sup> and Sergey Plis<sup>1,2</sup><br>
+> Amir Sabbaghziarani<sup>1,2</sup>, Parsa Ghazvinian<sup>2</sup>, Sepehr Salem<sup>2</sup>, and Sergey Plis<sup>1,2</sup><br>
 > <sup>1</sup>Joint Georgia Institute of Technology / Georgia State University / Emory University Center for Translational Research in Data Science and Neuroimaging<br>
 > <sup>2</sup>Georgia State University<br>
 > Accepted to [WACV 2027](https://wacv.thecvf.com/) —
@@ -285,7 +285,7 @@ on it.
 ```bibtex
 @inproceedings{sabbaghziarani2027answer,
   title     = {Answer or Defer? Testing {VLMs}' Stated Confidence on Brain {MRI}},
-  author    = {Sabbaghziarani, Amir and Plis, Sergey},
+  author    = {Sabbaghziarani, Amir and Ghazvinian, Parsa and Salem, Sepehr and Plis, Sergey},
   booktitle = {FABRIC Workshop at the IEEE/CVF Winter Conference on Applications of Computer Vision},
   year      = {2027},
   note      = {Accepted to the FABRIC Workshop}

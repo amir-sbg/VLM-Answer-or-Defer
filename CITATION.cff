@@ -10,6 +10,12 @@ authors:
     given-names: Amir
     affiliation: "Joint Georgia Institute of Technology / Georgia State University / Emory University Center for Translational Research in Data Science and Neuroimaging; Georgia State University"
     email: asabbaghziarani1@gsu.edu
+  - family-names: Ghazvinian
+    given-names: Parsa
+    affiliation: "Georgia State University"
+  - family-names: Salem
+    given-names: Sepehr
+    affiliation: "Georgia State University"
   - family-names: Plis
     given-names: Sergey
     affiliation: "Joint Georgia Institute of Technology / Georgia State University / Emory University Center for Translational Research in Data Science and Neuroimaging; Georgia State University"
@@ -28,6 +34,10 @@ preferred-citation:
   authors:
     - family-names: Sabbaghziarani
       given-names: Amir
+    - family-names: Ghazvinian
+      given-names: Parsa
+    - family-names: Salem
+      given-names: Sepehr
     - family-names: Plis
       given-names: Sergey
   collection-title: "FABRIC Workshop at the IEEE/CVF Winter Conference on Applications of Computer Vision"

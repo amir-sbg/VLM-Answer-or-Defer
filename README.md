@@ -9,7 +9,7 @@
 <p align="center">
   <a href="https://wacv.thecvf.com/"><img src="https://img.shields.io/badge/WACV-2027-4b2e83.svg" alt="WACV 2027"></a>
   <a href="https://sites.google.com/view/fabric-wacv"><img src="https://img.shields.io/badge/FABRIC-Workshop-7c5cc4.svg" alt="FABRIC Workshop"></a>
-  <img src="https://img.shields.io/badge/arXiv-coming%20soon-b31b1b.svg" alt="arXiv coming soon">
+  <a href="https://arxiv.org/abs/2611.11833"><img src="https://img.shields.io/badge/arXiv-2611.11833-b31b1b.svg" alt="arXiv 2611.11833"></a>
   <img src="https://img.shields.io/badge/Python-3.11-3776AB.svg" alt="Python 3.11">
 </p>
 
